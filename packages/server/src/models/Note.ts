@@ -1,7 +1,8 @@
 import { model, Schema, Document } from 'mongoose';
-
+import { BlockType } from './Block';
 export interface NoteType extends Document {
 	title: string;
+	blocks: BlockType[];
 }
 
 const NoteSchema = new Schema({
