@@ -67,6 +67,23 @@ export const BlockContainer = styled.div`
 	}
 `;
 
+interface SidebarItemContainerProps {
+	selected?: boolean;
+}
+
+export const SidebarItemContainer = styled.p`
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+	${({ selected }: SidebarItemContainerProps) =>
+		selected &&
+		css`
+			border-left: 6px solid #505050;
+		`}
+	border-top: 1px solid #D3D3D3;
+	border-bottom: 1px solid #d3d3d3;
+`;
+
 const codeBlockStyles = css`
 	font-family: 'SF Mono', 'Dank Mono', monospace important!;
 	border-radius: 8px;

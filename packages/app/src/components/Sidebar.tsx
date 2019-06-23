@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from 'urql';
 import { SidebarContainer } from './elements';
+import SidebarItem from './SidebarItem';
 
 interface Note {
 	_id: string;
@@ -18,8 +19,8 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
 	if (!data || error) return <p>Error or empty</p>;
 	return (
 		<SidebarContainer>
-			{data.notes.map(note => (
-				<p>{note.title}</p>
+			{data.notes.map((note, index) => (
+				<SidebarItem key={index} title={note.title} />
 			))}
 		</SidebarContainer>
 	);
