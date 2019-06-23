@@ -1,14 +1,13 @@
 import { IResolvers } from 'apollo-server';
-import { Note, NoteType } from '../models';
-import { BlockType, Block } from '../models/Block';
+import { Note, NoteType, BlockType, Block } from './models';
 
 const resolvers: IResolvers = {
 	Query: {
-		notes: async (): Promise<NoteType[] | any> => {
+		notes: async (): Promise<NoteType[]> => {
 			const allNotes = await Note.find();
-			const allNotesWithBlocks = await allNotes.map(async note => {
+			const allNotesWithBlocks = allNotes.map(async note => {
 				const blocks = await Block.find({ noteId: note.id });
-				return { ...note, blocks };
+				return { ...note, blocks } as NoteType;
 			});
 			return allNotesWithBlocks;
 		},
