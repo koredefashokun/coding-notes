@@ -1,0 +1,27 @@
+{
+	"name": "coding-notes",
+	"version": "0.0.1",
+	"description": "Coding notes for offline use",
+	"main": "index.js",
+	"repository": "https://github.com/koredefashokun/coding-notes",
+	"author": "Oluwakorede Fashokun <korede@overt.dev>",
+	"license": "MIT",
+	"private": true,
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		],
+		"nohoist": []
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^1.10.2",
+		"@typescript-eslint/parser": "^1.10.2",
+		"eslint": "^6.0.0",
+		"eslint-config-prettier": "^5.0.0",
+		"eslint-plugin-import": "^2.17.3",
+		"eslint-plugin-prettier": "^3.1.0",
+		"eslint-plugin-react": "^7.13.0",
+		"prettier": "^1.18.2",
+		"typescript": "^3.5.2"
+	}
+}
