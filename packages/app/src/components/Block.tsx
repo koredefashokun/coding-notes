@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Block = () => {
+interface BlockProps {
+	content: string;
+}
+
+const Block = ({ content }: BlockProps) => {
 	const [mode, setMode] = React.useState('text');
-	return <div />;
+	return <div>{content}</div>;
 };
 
 export default Block;

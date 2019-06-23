@@ -3,12 +3,12 @@ import { AppContainer } from './elements';
 import Sidebar from './Sidebar';
 import Editor from './Editor';
 
-const App = () => {
+const App = ({ editorState = {} }: { editorState: object }) => {
 	const [fullScreen, setFullScreen] = React.useState(false);
 	return (
 		<AppContainer>
 			<Sidebar collapsed={fullScreen} />
-			<Editor {...{ fullScreen }} />
+			<Editor {...{ fullScreen, editorState }} />
 		</AppContainer>
 	);
 };

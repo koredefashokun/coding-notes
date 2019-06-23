@@ -22,7 +22,10 @@ const schema = gql`
 
 	type Mutation {
 		createNote(title: String!): Note!
-		createBlock(noteId: String!, mode: String!, content: String!): Block
+		deleteNote(id: String!): String!
+		createBlock(noteId: String!, mode: String!, content: String!): Block!
+		editBlock(id: String!, mode: String, content: String!): Block!
+		deleteBlock(id: String!): String!
 	}
 `;
 

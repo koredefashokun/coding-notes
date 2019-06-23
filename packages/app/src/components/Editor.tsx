@@ -1,15 +1,18 @@
 import React from 'react';
-import { EditorContainer, EditorTitleInput, EditorTextArea } from './elements';
+import {
+	EditorContainer,
+	EditorTitleInput,
+	EditorTextArea,
+	BlockContainer
+} from './elements';
 
 interface EditorProps {
 	fullScreen: boolean;
+	editorState: object;
 }
 
-const Editor = ({ fullScreen }: EditorProps) => {
+const Editor = ({ fullScreen, editorState }: EditorProps) => {
 	const [title, setTitle] = React.useState('');
-	{
-		/* Last saved widget, formatting and more */
-	}
 	return (
 		<EditorContainer>
 			<EditorTitleInput
@@ -17,7 +20,14 @@ const Editor = ({ fullScreen }: EditorProps) => {
 				value={title}
 				onChange={e => setTitle(e.target.value)}
 			/>
-			<EditorTextArea />
+			<EditorTextArea>
+				<BlockContainer mode='text' writingMode={true}>
+					<textarea />
+				</BlockContainer>
+				<BlockContainer mode='code' writingMode={true}>
+					<textarea />
+				</BlockContainer>
+			</EditorTextArea>
 		</EditorContainer>
 	);
 };

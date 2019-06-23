@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const AppContainer = styled.div`
 	display: grid;
@@ -28,12 +28,13 @@ export const EditorTitleInput = styled.input`
 	}
 `;
 
-export const EditorTextArea = styled.textarea`
-	font-family: 'SF Mono', 'Dank Mono', monospace;
-	font-size: 14px;
+export const EditorTextArea = styled.div`
 	border: none;
 	width: 100%;
+	display: flex;
 	flex-grow: 1;
+	flex-direction: column;
+	align-items: center;
 	resize: none;
 	&:focus {
 		outline: none;
@@ -44,4 +45,38 @@ export const SidebarContainer = styled.div`
 	width: 100%;
 	height: 100%;
 	background-color: #f2f2f2;
+`;
+
+interface BlockContainerProps {
+	mode: 'text' | 'code';
+	writingMode: boolean;
+}
+
+export const BlockContainer = styled.div`
+	margin: 10px 0;
+	min-height: 10px;
+	max-height: 400px;
+	${({ mode }: BlockContainerProps) =>
+		mode === 'code' ? codeBlockStyles : textBlockStyles}
+	textarea {
+		border: none;
+		resize: none;
+		font-size: 16px;
+		width: 100%;
+		height: 100%;
+	}
+`;
+
+const codeBlockStyles = css`
+	font-family: 'SF Mono', 'Dank Mono', monospace important!;
+	border-radius: 8px;
+	width: 75%;
+	padding: 20px;
+	box-shadow: 0 0 20px 10px rgba(239, 239, 239, 0.5);
+`;
+
+const textBlockStyles = css`
+	border: none;
+	width: 90%;
+	font-family: sans-serif;
 `;

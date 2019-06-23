@@ -1,7 +1,6 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { useQuery } from 'urql';
 import { SidebarContainer } from './elements';
-import { FETCH_NOTES } from '../graphql/queries';
 
 interface Note {
 	_id: string;
@@ -12,23 +11,18 @@ interface SidebarProps {
 	collapsed: boolean;
 }
 
-const Sidebar = ({ collapsed }: SidebarProps) => (
-	<Query<{ notes: Note[] }> query={FETCH_NOTES}>
-		{({ loading, error, data }) => {
-			if (error) return <p>Error</p>;
-			if (loading) return <p>Loading</p>;
-			console.log(data);
-			return (
-				data && (
-					<SidebarContainer>
-						{data.notes.map(note => (
-							<p>{note.title}</p>
-						))}
-					</SidebarContainer>
-				)
-			);
-		}}
-	</Query>
-);
+const query = `{ notes { _id, title } }`;
+
+const Sidebar = ({ collapsed }: SidebarProps) => {
+	const [{ data, error }] = useQuery<{ notes: Note[] }>({ query });
+	if (!data || error) return <p>Error or empty</p>;
+	return (
+		<SidebarContainer>
+			{data.notes.map(note => (
+				<p>{note.title}</p>
+			))}
+		</SidebarContainer>
+	);
+};
 
 export default Sidebar;
