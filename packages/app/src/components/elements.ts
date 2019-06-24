@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Editor from 'react-simple-code-editor';
+import { Link } from 'react-router-dom';
 
 export const AppContainer = styled.div`
 	display: grid;
@@ -12,6 +13,7 @@ export const EditorContainer = styled.main`
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
+	overflow-y: scroll;
 `;
 
 export const EditorTitleInput = styled.input`
@@ -82,9 +84,10 @@ interface SidebarItemContainerProps {
 	selected?: boolean;
 }
 
-export const SidebarItemContainer = styled.div`
+export const SidebarItemContainer = styled(Link)`
 	display: flex;
 	justify-content: center;
+	font-family: sans-serif;
 	padding: 10px;
 	${({ selected }: SidebarItemContainerProps) =>
 		selected &&
@@ -99,11 +102,11 @@ const codeBlockStyles = css`
 	border-radius: 8px;
 	width: 75%;
 	padding: 20px;
-	box-shadow: 0 0 20px 10px rgba(239, 239, 239, 0.5);
+	box-shadow: 0 0 20px 10px rgba(239, 239, 239, 0.9);
 `;
 
 const textBlockStyles = css`
 	border: none;
-	width: 90%;
+	width: 85%;
 	font-family: sans-serif;
 `;

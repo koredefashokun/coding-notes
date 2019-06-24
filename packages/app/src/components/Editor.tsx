@@ -1,5 +1,6 @@
 import React from 'react';
-import { useMutation } from 'urql';
+import { useMutation, useQuery } from 'urql';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import {
 	EditorContainer,
 	EditorTitleInput,
@@ -8,9 +9,8 @@ import {
 } from './elements';
 import CodeTextarea from './CodeTextarea';
 
-interface EditorProps {
+interface EditorProps extends RouteComponentProps<{ noteId: string }> {
 	fullScreen: boolean;
-	currentNote: Note;
 }
 
 const mutation = `
@@ -33,33 +33,54 @@ const noteMutation = `
 	}
 `;
 
-const Editor = ({ fullScreen, currentNote }: EditorProps) => {
-	const [title, setTitle] = React.useState(currentNote.title);
+const query = `
+	query GetNote($id: String!) {
+		note(id: $id) {
+			_id
+			title
+			blocks {
+				_id
+				mode
+				content
+			}
+		}
+	}
+`;
+
+const Editor = ({ fullScreen, match }: EditorProps) => {
+	const { noteId } = match.params;
+
 	const [{}, executeBlockMutation] = useMutation(mutation);
 	const [{}, executeNoteMutation] = useMutation(noteMutation);
+	const [{ data, error, fetching }] = useQuery<{ note: Note }>({
+		query,
+		variables: { id: noteId }
+	});
 
 	const createNewBlock = (mode: Block['mode']) => {
-		return executeBlockMutation({
-			noteId: currentNote._id,
-			mode,
-			content: ''
-		});
+		return executeBlockMutation({ noteId, mode, content: '' });
 	};
 
 	const editNote = async (title: string) => {
-		await setTitle(title);
-		return executeNoteMutation({ id: currentNote._id, title });
+		return executeNoteMutation({ id: noteId, title });
 	};
+
+	if (!noteId) return <p>Please create a note first</p>;
+
+	if (fetching) return <p>Loading</p>;
+	if (error || !data) return <p>An error has ocurred.</p>;
+
+	const { note } = data;
 
 	return (
 		<EditorContainer>
 			<EditorTitleInput
 				placeholder='Note Title'
-				value={title}
+				defaultValue={note.title}
 				onChange={e => editNote(e.target.value)}
 			/>
 			<EditorTextArea>
-				{currentNote.blocks.map((block, index) => (
+				{note.blocks.map((block, index) => (
 					<BlockContainer mode={block.mode} writingMode>
 						<CodeTextarea
 							blockId={block._id}
@@ -79,4 +100,4 @@ const Editor = ({ fullScreen, currentNote }: EditorProps) => {
 	);
 };
 
-export default Editor;
+export default withRouter(Editor);

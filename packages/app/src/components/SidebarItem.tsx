@@ -1,12 +1,16 @@
 import React from 'react';
+import { LinkProps } from 'react-router-dom';
 import { SidebarItemContainer } from './elements';
 
-interface SidebarItemProps {
+interface SidebarItemProps extends LinkProps {
 	title: string;
 }
 
-const SidebarItem = ({ title }: SidebarItemProps) => (
-	<SidebarItemContainer selected={true}>{title}</SidebarItemContainer>
+// TODO: Make the item aware of when it is active or not?
+const SidebarItem = ({ title, to }: SidebarItemProps) => (
+	<SidebarItemContainer selected={true} {...{ to }}>
+		{title}
+	</SidebarItemContainer>
 );
 
 export default SidebarItem;

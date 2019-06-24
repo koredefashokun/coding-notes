@@ -3,10 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"highlight.js": "^9.15.8",
 		"prismjs": "^1.16.0",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
+		"react-router-dom": "^5.0.1",
 		"react-scripts": "3.0.1",
 		"react-simple-code-editor": "^0.9.11",
 		"styled-components": "^4.3.2",
@@ -20,6 +20,7 @@
 		"@types/prismjs": "^1.16.0",
 		"@types/react": "16.8.22",
 		"@types/react-dom": "16.8.4",
+		"@types/react-router-dom": "^4.3.4",
 		"@types/styled-components": "^4.1.16"
 	},
 	"scripts": {

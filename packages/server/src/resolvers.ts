@@ -30,6 +30,7 @@ const resolvers: IResolvers = {
 	Mutation: {
 		createNote: async (_, { title }): Promise<NoteType> => {
 			const note = await new Note({ title }).save();
+			note.blocks = [];
 			return note;
 		},
 		editNote: async (_, { id, title }): Promise<NoteType> => {
