@@ -7,66 +7,30 @@ import {
 	EditorTextArea,
 	BlockContainer
 } from './elements';
+import { fetchNoteById, createBlock, editNote } from '../graphql';
 import CodeTextarea from './CodeTextarea';
 
 interface EditorProps extends RouteComponentProps<{ noteId: string }> {
 	fullScreen: boolean;
 }
 
-const mutation = `
-	mutation CreateBlock($noteId: String!, $mode: String!, $content: String) {
-		createBlock(noteId: $noteId, mode: $mode, content: $content) {
-			_id
-			noteId
-			mode
-			content
-		}
-	}
-`;
-
-const noteMutation = `
-	mutation EditNote($id: String!, $title: String!) {
-		editNote(id: $id, title: $title) {
-			_id
-			title
-		}
-	}
-`;
-
-const query = `
-	query GetNote($id: String!) {
-		note(id: $id) {
-			_id
-			title
-			blocks {
-				_id
-				mode
-				content
-			}
-		}
-	}
-`;
-
 const Editor = ({ fullScreen, match }: EditorProps) => {
 	const { noteId } = match.params;
-
-	const [{}, executeBlockMutation] = useMutation(mutation);
-	const [{}, executeNoteMutation] = useMutation(noteMutation);
-	const [{ data, error, fetching }] = useQuery<{ note: Note }>({
-		query,
-		variables: { id: noteId }
-	});
+	const [{}, executeBlockMutation] = useMutation(createBlock);
+	const [{}, executeNoteMutation] = useMutation(editNote);
+	const [{ data, error, fetching }] = useQuery<{ note: Note }>(
+		fetchNoteById(noteId)
+	);
 
 	const createNewBlock = (mode: Block['mode']) => {
 		return executeBlockMutation({ noteId, mode, content: '' });
 	};
 
-	const editNote = async (title: string) => {
+	const editNoteByTitle = async (title: string) => {
 		return executeNoteMutation({ id: noteId, title });
 	};
 
 	if (!noteId) return <p>Please create a note first</p>;
-
 	if (fetching) return <p>Loading</p>;
 	if (error || !data) return <p>An error has ocurred.</p>;
 
@@ -77,7 +41,7 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 			<EditorTitleInput
 				placeholder='Note Title'
 				defaultValue={note.title}
-				onChange={e => editNote(e.target.value)}
+				onChange={e => editNoteByTitle(e.target.value)}
 			/>
 			<EditorTextArea>
 				{note.blocks.map((block, index) => (

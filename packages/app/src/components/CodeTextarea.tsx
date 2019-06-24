@@ -6,6 +6,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-markup';
 import './prism-github.css';
 import { BlockCodeTextarea } from './elements';
+import { editBlock } from '../graphql';
 
 interface CodeTextareaProps {
 	blockId: string;
@@ -13,19 +14,10 @@ interface CodeTextareaProps {
 	initialContent: string;
 }
 
-const mutation = `
-	mutation EditBlock($id: String!, $content: String!) {
-		editBlock(id: $id, content: $content) {
-			_id
-			content
-		}
-	}
-`;
-
 const CodeTextarea = ({ blockId, mode, initialContent }: CodeTextareaProps) => {
 	const [content, setContent] = React.useState(initialContent);
 	// TODO: Add support for multiple languages
-	const [{ fetching }, execute] = useMutation(mutation);
+	const [{ fetching }, execute] = useMutation(editBlock);
 	const handleChange = async (content: string) => {
 		await setContent(content);
 		execute({ id: blockId, content });
