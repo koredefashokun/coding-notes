@@ -1,4 +1,4 @@
-# Coding Notes Frontend
+# Coding Notes
 
 ## License
 
