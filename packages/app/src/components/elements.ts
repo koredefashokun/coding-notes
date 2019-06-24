@@ -66,6 +66,7 @@ export const BlockContainer = styled.div`
 		width: 100%;
 		height: 100%;
 		font-family: inherit !important;
+		color: #333;
 	}
 `;
 
@@ -81,7 +82,7 @@ interface SidebarItemContainerProps {
 	selected?: boolean;
 }
 
-export const SidebarItemContainer = styled.p`
+export const SidebarItemContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	padding: 10px;

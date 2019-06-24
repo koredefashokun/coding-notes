@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMutation } from 'urql';
 import {
 	EditorContainer,
 	EditorTitleInput,
@@ -12,8 +13,29 @@ interface EditorProps {
 	currentNote: Note;
 }
 
+const mutation = `
+	mutation CreateBlock($noteId: String!, $mode: String!, $content: String) {
+		createBlock(noteId: $noteId, mode: $mode, content: $content) {
+			_id
+			noteId
+			mode
+			content
+		}
+	}
+`;
+
 const Editor = ({ fullScreen, currentNote }: EditorProps) => {
 	const [title, setTitle] = React.useState(currentNote.title);
+	const [{ fetching }, executeMutation] = useMutation(mutation);
+
+	const createNewBlock = (mode: Block['mode']) => {
+		return executeMutation({
+			noteId: currentNote._id,
+			mode,
+			content: ''
+		});
+	};
+
 	return (
 		<EditorContainer>
 			<EditorTitleInput
@@ -24,13 +46,19 @@ const Editor = ({ fullScreen, currentNote }: EditorProps) => {
 			<EditorTextArea>
 				{currentNote.blocks.map((block, index) => (
 					<BlockContainer mode={block.mode} writingMode>
-						{block.mode === 'code' ? (
-							<CodeTextarea blockId={block._id} content={block.content} />
-						) : (
-							<textarea />
-						)}
+						<CodeTextarea
+							blockId={block._id}
+							mode={block.mode}
+							initialContent={block.content}
+						/>
 					</BlockContainer>
 				))}
+				<button onClick={() => createNewBlock('code')}>
+					Create new code block
+				</button>
+				<button onClick={() => createNewBlock('text')}>
+					Create new text block
+				</button>
 			</EditorTextArea>
 		</EditorContainer>
 	);

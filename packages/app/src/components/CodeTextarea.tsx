@@ -9,7 +9,8 @@ import { BlockCodeTextarea } from './elements';
 
 interface CodeTextareaProps {
 	blockId: string;
-	content: string;
+	mode: Block['mode'];
+	initialContent: string;
 }
 
 const mutation = `
@@ -21,25 +22,23 @@ const mutation = `
 	}
 `;
 
-const CodeTextarea = ({ blockId, content }: CodeTextareaProps) => {
-	const [code, setCode] = React.useState(content);
+const CodeTextarea = ({ blockId, mode, initialContent }: CodeTextareaProps) => {
+	const [content, setContent] = React.useState(initialContent);
 	// TODO: Add support for multiple languages
 	const [{ fetching }, execute] = useMutation(mutation);
-	const handleChange = async (code: string) => {
-		await setCode(code);
-		execute({ id: blockId, content: code });
+	const handleChange = async (content: string) => {
+		await setContent(content);
+		execute({ id: blockId, content });
 	};
 
-	const refetch = React.useCallback(() => {
-		// Call the code to refetchQueries and get the component up to speed with the latest info.
-	}, []);
-
-	return (
+	return mode === 'code' ? (
 		<BlockCodeTextarea
-			value={code}
+			value={content}
 			onValueChange={handleChange}
 			highlight={code => highlight(code, languages.js, 'js')}
 		/>
+	) : (
+		<textarea value={content} onChange={e => handleChange(e.target.value)} />
 	);
 };
 
