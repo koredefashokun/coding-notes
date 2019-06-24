@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Editor from 'react-simple-code-editor';
 
 export const AppContainer = styled.div`
 	display: grid;
@@ -64,7 +65,16 @@ export const BlockContainer = styled.div`
 		font-size: 16px;
 		width: 100%;
 		height: 100%;
+		font-family: inherit !important;
 	}
+`;
+
+export const BlockCodeTextarea = styled(Editor)`
+	border: none;
+	resize: none;
+	font-size: 16px;
+	width: 100%;
+	height: 100%;
 `;
 
 interface SidebarItemContainerProps {
@@ -85,7 +95,7 @@ export const SidebarItemContainer = styled.p`
 `;
 
 const codeBlockStyles = css`
-	font-family: 'SF Mono', 'Dank Mono', monospace important!;
+	font-family: 'SF Mono', 'Dank Mono', monospace !important;
 	border-radius: 8px;
 	width: 75%;
 	padding: 20px;

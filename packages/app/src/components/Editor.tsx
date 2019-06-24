@@ -5,6 +5,7 @@ import {
 	EditorTextArea,
 	BlockContainer
 } from './elements';
+import CodeTextarea from './CodeTextarea';
 
 interface EditorProps {
 	fullScreen: boolean;
@@ -25,7 +26,7 @@ const Editor = ({ fullScreen, editorState }: EditorProps) => {
 					<textarea />
 				</BlockContainer>
 				<BlockContainer mode='code' writingMode={true}>
-					<textarea />
+					<CodeTextarea blockId='' />
 				</BlockContainer>
 			</EditorTextArea>
 		</EditorContainer>
