@@ -90,7 +90,6 @@ export const SidebarItemContainer = styled.p`
 		css`
 			border-left: 6px solid #505050;
 		`}
-	border-top: 1px solid #D3D3D3;
 	border-bottom: 1px solid #d3d3d3;
 `;
 
