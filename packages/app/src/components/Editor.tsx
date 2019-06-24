@@ -25,7 +25,7 @@ const Editor = ({ fullScreen, currentNote }: EditorProps) => {
 				{currentNote.blocks.map((block, index) => (
 					<BlockContainer mode={block.mode} writingMode>
 						{block.mode === 'code' ? (
-							<CodeTextarea blockId={block._id} />
+							<CodeTextarea blockId={block._id} content={block.content} />
 						) : (
 							<textarea />
 						)}

@@ -9,6 +9,7 @@ import { BlockCodeTextarea } from './elements';
 
 interface CodeTextareaProps {
 	blockId: string;
+	content: string;
 }
 
 const mutation = `
@@ -20,8 +21,8 @@ const mutation = `
 	}
 `;
 
-const CodeTextarea = ({ blockId }: CodeTextareaProps) => {
-	const [code, setCode] = React.useState('');
+const CodeTextarea = ({ blockId, content }: CodeTextareaProps) => {
+	const [code, setCode] = React.useState(content);
 	// TODO: Add support for multiple languages
 	const [{ fetching }, execute] = useMutation(mutation);
 	const handleChange = async (code: string) => {

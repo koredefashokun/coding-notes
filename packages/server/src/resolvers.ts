@@ -42,8 +42,14 @@ const resolvers: IResolvers = {
 			return block;
 		},
 		editBlock: async (_, { id, content }): Promise<BlockType> => {
-			const updatedBlock = await Block.updateOne({ _id: id }, { content });
-			return updatedBlock;
+			try {
+				const updatedBlock = await Block.findOne({ _id: id });
+				updatedBlock.content = content;
+				await updatedBlock.save();
+				return updatedBlock;
+			} catch (error) {
+				throw new Error(error.message);
+			}
 		},
 		deleteBlock: async (_, { id }): Promise<string> => {
 			await Block.deleteOne({ _id: id });

@@ -1,7 +1,9 @@
 import { model, Schema, Document } from 'mongoose';
 
 export interface BlockType extends Document {
+	noteId: string;
 	mode: 'text' | 'code';
+	content: string;
 }
 
 export const BlockSchema = new Schema({
@@ -12,6 +14,7 @@ export const BlockSchema = new Schema({
 	},
 	mode: {
 		type: String,
+		enum: ['text', 'code'],
 		required: true
 	},
 	content: {

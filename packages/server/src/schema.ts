@@ -3,7 +3,6 @@ import { gql } from 'apollo-server';
 const schema = gql`
 	type Block {
 		_id: String!
-		deviceId: String!
 		mode: String!
 		content: String!
 	}

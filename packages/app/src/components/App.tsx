@@ -21,13 +21,14 @@ const query = `
 const App = () => {
 	const [fullScreen, setFullScreen] = React.useState(false);
 	const [{ data, error, fetching }] = useQuery<{ notes: Note[] }>({ query });
+	// const [currentNote, setCurrentNote] = React.useState<Note>();
 	if (fetching) return <p>Loading</p>;
 	if (error || !data) return <p>Error</p>;
-	const [currentNote, setCurrentNote] = React.useState<Note>(data.notes[0]);
+
 	return (
 		<AppContainer>
 			<Sidebar notes={data.notes} collapsed={fullScreen} />
-			<Editor {...{ fullScreen, currentNote }} />
+			<Editor {...{ fullScreen, currentNote: data.notes[0] }} />
 		</AppContainer>
 	);
 };
