@@ -32,6 +32,12 @@ const resolvers: IResolvers = {
 			const note = await new Note({ title }).save();
 			return note;
 		},
+		editNote: async (_, { id, title }): Promise<NoteType> => {
+			const note = await Note.findOne({ _id: id });
+			note.title = title;
+			const updatedNote = await note.save();
+			return updatedNote;
+		},
 		deleteNote: async (_, { id }): Promise<string> => {
 			await Block.deleteMany({ noteId: id });
 			await Note.deleteOne({ _id: id });

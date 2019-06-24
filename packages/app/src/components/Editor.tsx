@@ -24,16 +24,31 @@ const mutation = `
 	}
 `;
 
+const noteMutation = `
+	mutation EditNote($id: String!, $title: String!) {
+		editNote(id: $id, title: $title) {
+			_id
+			title
+		}
+	}
+`;
+
 const Editor = ({ fullScreen, currentNote }: EditorProps) => {
 	const [title, setTitle] = React.useState(currentNote.title);
-	const [{ fetching }, executeMutation] = useMutation(mutation);
+	const [{}, executeBlockMutation] = useMutation(mutation);
+	const [{}, executeNoteMutation] = useMutation(noteMutation);
 
 	const createNewBlock = (mode: Block['mode']) => {
-		return executeMutation({
+		return executeBlockMutation({
 			noteId: currentNote._id,
 			mode,
 			content: ''
 		});
+	};
+
+	const editNote = async (title: string) => {
+		await setTitle(title);
+		return executeNoteMutation({ id: currentNote._id, title });
 	};
 
 	return (
@@ -41,7 +56,7 @@ const Editor = ({ fullScreen, currentNote }: EditorProps) => {
 			<EditorTitleInput
 				placeholder='Note Title'
 				value={title}
-				onChange={e => setTitle(e.target.value)}
+				onChange={e => editNote(e.target.value)}
 			/>
 			<EditorTextArea>
 				{currentNote.blocks.map((block, index) => (
