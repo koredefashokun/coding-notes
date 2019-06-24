@@ -1,14 +1,33 @@
 import React from 'react';
 import { AppContainer } from './elements';
+import { useQuery } from 'urql';
 import Sidebar from './Sidebar';
 import Editor from './Editor';
 
-const App = ({ editorState = {} }: { editorState: object }) => {
+const query = `
+	{
+		notes {
+			_id
+			title
+			blocks {
+				_id
+				mode
+				content
+			}
+		}
+	}
+`;
+
+const App = () => {
 	const [fullScreen, setFullScreen] = React.useState(false);
+	const [{ data, error, fetching }] = useQuery<{ notes: Note[] }>({ query });
+	if (fetching) return <p>Loading</p>;
+	if (error || !data) return <p>Error</p>;
+	const [currentNote, setCurrentNote] = React.useState<Note>(data.notes[0]);
 	return (
 		<AppContainer>
-			<Sidebar collapsed={fullScreen} />
-			<Editor {...{ fullScreen, editorState }} />
+			<Sidebar notes={data.notes} collapsed={fullScreen} />
+			<Editor {...{ fullScreen, currentNote }} />
 		</AppContainer>
 	);
 };

@@ -23,11 +23,15 @@ const mutation = `
 const CodeTextarea = ({ blockId }: CodeTextareaProps) => {
 	const [code, setCode] = React.useState('');
 	// TODO: Add support for multiple languages
-	const [data, execute] = useMutation(mutation);
+	const [{ fetching }, execute] = useMutation(mutation);
 	const handleChange = async (code: string) => {
 		await setCode(code);
 		execute({ id: blockId, content: code });
 	};
+
+	const refetch = React.useCallback(() => {
+		// Call the code to refetchQueries and get the component up to speed with the latest info.
+	}, []);
 
 	return (
 		<BlockCodeTextarea

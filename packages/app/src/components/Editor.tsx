@@ -9,11 +9,11 @@ import CodeTextarea from './CodeTextarea';
 
 interface EditorProps {
 	fullScreen: boolean;
-	editorState: object;
+	currentNote: Note;
 }
 
-const Editor = ({ fullScreen, editorState }: EditorProps) => {
-	const [title, setTitle] = React.useState('');
+const Editor = ({ fullScreen, currentNote }: EditorProps) => {
+	const [title, setTitle] = React.useState(currentNote.title);
 	return (
 		<EditorContainer>
 			<EditorTitleInput
@@ -22,12 +22,15 @@ const Editor = ({ fullScreen, editorState }: EditorProps) => {
 				onChange={e => setTitle(e.target.value)}
 			/>
 			<EditorTextArea>
-				<BlockContainer mode='text' writingMode={true}>
-					<textarea />
-				</BlockContainer>
-				<BlockContainer mode='code' writingMode={true}>
-					<CodeTextarea blockId='' />
-				</BlockContainer>
+				{currentNote.blocks.map((block, index) => (
+					<BlockContainer mode={block.mode} writingMode>
+						{block.mode === 'code' ? (
+							<CodeTextarea blockId={block._id} />
+						) : (
+							<textarea />
+						)}
+					</BlockContainer>
+				))}
 			</EditorTextArea>
 		</EditorContainer>
 	);

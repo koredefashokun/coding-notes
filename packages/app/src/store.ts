@@ -1,12 +1,20 @@
 interface Action {
 	type: string;
-	payload: { [key: string]: string };
+	payload: { [key: string]: string | number | [] };
 }
 
-const appReducer = (state = {}, action: Action) => {
+const initialState = {
+	editor: {
+		title: '',
+		blocks: []
+	}
+}
+
+const appReducer = (state = initialState, action: Action) => {
 	switch (action.type) {
 		case 'SET_ACTIVE_EDITOR':
-			return { ...state, note: action.payload.note };
+			// This will be passed the new id in
+			return { ...state, editor: action.payload.note };
 		case 'CREATE_NEW_EDITOR':
 			break;
 		default:
