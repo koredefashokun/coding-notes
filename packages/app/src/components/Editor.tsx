@@ -40,12 +40,12 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 		<EditorContainer>
 			<EditorTitleInput
 				placeholder='Note Title'
-				defaultValue={note.title}
+				value={note.title}
 				onChange={e => editNoteByTitle(e.target.value)}
 			/>
 			<EditorTextArea>
 				{note.blocks.map((block, index) => (
-					<BlockContainer mode={block.mode} writingMode>
+					<BlockContainer key={index} mode={block.mode} writingMode>
 						<CodeTextarea
 							blockId={block._id}
 							mode={block.mode}
