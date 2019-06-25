@@ -1,16 +1,23 @@
 import React from 'react';
 import { LinkProps } from 'react-router-dom';
 import { SidebarItemContainer } from './elements';
+import SidebarActions from './SidebarActions';
 
 interface SidebarItemProps extends LinkProps {
+  selected: boolean;
+  id: string;
 	title: string;
 }
 
-// TODO: Make the item aware of when it is active or not?
-const SidebarItem = ({ title, to }: SidebarItemProps) => (
-	<SidebarItemContainer selected={true} {...{ to }}>
-		{title}
-	</SidebarItemContainer>
-);
+const SidebarItem = ({ selected, id, title, to }: SidebarItemProps) => {
+  return (
+    <>
+      <SidebarItemContainer {...{ to, selected }}>
+        <p>{title}</p>
+      </SidebarItemContainer>     
+      <SidebarActions noteId={id} />
+    </>
+  );
+};
 
 export default SidebarItem;

@@ -52,7 +52,7 @@ export const SidebarContainer = styled.div`
 
 interface BlockContainerProps {
 	mode: 'text' | 'code';
-	writingMode: boolean;
+	writingMode?: boolean;
 }
 
 export const BlockContainer = styled.div`

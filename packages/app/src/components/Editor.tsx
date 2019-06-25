@@ -16,8 +16,8 @@ interface EditorProps extends RouteComponentProps<{ noteId: string }> {
 
 const Editor = ({ fullScreen, match }: EditorProps) => {
 	const { noteId } = match.params;
-	const [{}, executeBlockMutation] = useMutation(createBlock);
-	const [{}, executeNoteMutation] = useMutation(editNote);
+	const [, executeBlockMutation] = useMutation(createBlock);
+	const [, executeNoteMutation] = useMutation(editNote);
 	const [{ data, error, fetching }] = useQuery<{ note: Note }>(
 		fetchNoteById(noteId)
 	);
@@ -45,7 +45,7 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 			/>
 			<EditorTextArea>
 				{note.blocks.map((block, index) => (
-					<BlockContainer key={index} mode={block.mode} writingMode>
+					<BlockContainer key={index} mode={block.mode}>
 						<CodeTextarea
 							blockId={block._id}
 							mode={block.mode}

@@ -39,10 +39,11 @@ const resolvers: IResolvers = {
 			const updatedNote = await note.save();
 			return updatedNote;
 		},
-		deleteNote: async (_, { id }): Promise<string> => {
+		deleteNote: async (_, { id }): Promise<Partial<NoteType>> => {
 			await Block.deleteMany({ noteId: id });
 			await Note.deleteOne({ _id: id });
-			return `Successfully deleted note: ${id}`;
+      return { _id: id }
+			// return `Successfully deleted note: ${id}`;
 		},
 		createBlock: async (_, { noteId, mode, content }): Promise<BlockType> => {
 			const block = await new Block({ noteId, mode, content }).save();
