@@ -13,7 +13,6 @@ export const AppContainer = styled.div`
 	height: 100vh;
 `;
 
-
 /*
  * Editor Styles
  */
@@ -88,24 +87,24 @@ export const BlockCodeTextarea = styled(Editor)`
 `;
 
 export const BlockActionButton = styled.button`
-  background-color: rgba(0, 0, 0, 0.04);
-  color: #505050;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 10px;
-  border: none;
-  border-radius: 4px; 
-  transition: background-color 500ms linear;
-  &:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  &:focus {
-    outline: none;
-  }
-  &:not(:last-of-type) {
-    margin-right: 15px;
-  }
+	background-color: rgba(0, 0, 0, 0.04);
+	color: #505050;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	transition: background-color 500ms linear;
+	&:hover {
+		cursor: pointer;
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+	&:focus {
+		outline: none;
+	}
+	&:not(:last-of-type) {
+		margin-right: 15px;
+	}
 `;
 
 /*
@@ -124,57 +123,60 @@ interface SidebarItemContainerProps {
 
 export const SidebarItemContainer = styled(Link)`
 	display: flex;
-  flex-wrap: nowrap;
+	flex-wrap: nowrap;
 	justify-content: space-between;
-  align-items: center;
+	align-items: center;
 	font-family: sans-serif;
-  font-weight: 500;
+	font-weight: 500;
 	padding: 10px;
-  background-color: transparent;
-  color: #505050;
-  text-decoration: none;
+	background-color: transparent;
+	color: #505050;
+	text-decoration: none;
 	${({ selected }: SidebarItemContainerProps) =>
-		selected && css`border-left: 6px solid #505050;`}
+		selected &&
+		css`
+			border-left: 6px solid #505050;
+		`}
 	border-bottom: 1px solid #d3d3d3;
-  transition: background-color 300ms ease-in;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
+	transition: background-color 300ms ease-in;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.08);
+	}
 `;
 
 export const SidebarActionContainer = styled.button`
-  padding: 6px;
-  background-color: #ED7E6D;
-  border-radius: 4px;
-  border: none;
-  font-size: 12px;
-  color: #F2F2F2;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    outline: none;
-  }
+	padding: 6px;
+	background-color: #ed7e6d;
+	border-radius: 4px;
+	border: none;
+	font-size: 12px;
+	color: #f2f2f2;
+	&:hover {
+		cursor: pointer;
+	}
+	&:focus {
+		outline: none;
+	}
 `;
 
 export const SidebarActionButton = styled.button`
-  display: block;
-  margin: auto;
-  padding: 10px 0;
-  margin-top: 20px;
-  width: 90%;
-  background-color: #505050;
-  border-radius: 4px;
-  color: #F2F2F2;
-  font-size: 14px;
-  text-align: center;
-  text-transform: uppercase;
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    cursor: pointer;
-  }
+	display: block;
+	margin: auto;
+	padding: 10px 0;
+	margin-top: 20px;
+	width: 90%;
+	background-color: #505050;
+	border-radius: 4px;
+	color: #f2f2f2;
+	font-size: 14px;
+	text-align: center;
+	text-transform: uppercase;
+	&:focus {
+		outline: none;
+	}
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 /*

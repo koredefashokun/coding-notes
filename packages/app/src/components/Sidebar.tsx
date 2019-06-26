@@ -24,16 +24,16 @@ const Sidebar = ({ collapsed, notes, history, match }: SidebarProps) => {
 		<SidebarContainer>
 			{notes.map((note, index) => (
 				<SidebarItem
-          key={index}
-          id={note._id}
+					key={index}
+					id={note._id}
 					title={note.title}
 					to={`/${note._id}`}
 					selected={match.params.noteId === note._id}
 				/>
 			))}
-    <SidebarActionButton onClick={addNote}>
-      <p>+ Add Note</p>
-    </SidebarActionButton>
+			<SidebarActionButton onClick={addNote}>
+				<p>+ Add Note</p>
+			</SidebarActionButton>
 		</SidebarContainer>
 	);
 };

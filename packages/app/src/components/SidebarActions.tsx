@@ -9,19 +9,16 @@ const mutation = `
 `;
 
 interface SidebarActionProps {
-  noteId: string;
+	noteId: string;
 }
 
 const SidebarActions = ({ noteId }: SidebarActionProps) => {
-  const [, executeMutation] = useMutation(mutation);
-  const onClick = () => executeMutation({ id: noteId });
+	const [, executeMutation] = useMutation(mutation);
+	const onClick = () => executeMutation({ id: noteId });
 
-  return (
-    <SidebarActionContainer {...{ onClick }}>
-      Delete
-    </SidebarActionContainer>
-  );
+	return (
+		<SidebarActionContainer {...{ onClick }}>Delete</SidebarActionContainer>
+	);
 };
 
 export default SidebarActions;
-
