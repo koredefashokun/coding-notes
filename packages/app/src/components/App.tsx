@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { useQuery } from 'urql';
 import { fetchAllNotes } from '../graphql';
 import { AppContainer } from './elements';
-import { useQuery } from 'urql';
 import Sidebar from './Sidebar';
 import Editor from './Editor';
 

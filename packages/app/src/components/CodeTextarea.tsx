@@ -4,7 +4,7 @@ import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-markup';
-import './prism-github.css';
+import 'prismjs/themes/prism.css';
 import { BlockCodeTextarea } from './elements';
 import { editBlock } from '../graphql';
 
