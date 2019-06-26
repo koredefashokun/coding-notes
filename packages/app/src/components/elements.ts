@@ -62,9 +62,11 @@ export const EmptyEditorContainer = styled.div`
 	justify-content: center;
 	& > * {
 		text-align: center;
-		font-family: 'Crimson Text', sans-serif;
-		font-weight: 500;
 		color: #505050;
+		& > * {
+			font-family: 'Crimson Text', sans-serif;
+			font-weight: 500;
+		}
 	}
 `;
 
@@ -84,13 +86,18 @@ export const BlockContainer = styled.div`
 	${({ mode }: BlockContainerProps) =>
 		mode === 'code' ? codeBlockStyles : textBlockStyles}
 	textarea {
-		border: none;
+		border: 2.5px solid transparent;
+		padding: 10px;
 		resize: none;
 		font-size: 20px;
 		width: 100%;
 		height: 100%;
 		font-family: inherit !important;
 		color: #333;
+		transition: border 200ms ease;
+		&:focus {
+			border: 2.5px solid #d3d3d3;
+		}
 	}
 `;
 
@@ -209,7 +216,7 @@ const codeBlockStyles = css`
 
 const textBlockStyles = css`
 	border: none;
-	width: 85%;
+	width: 87.5%;
 	font-family: 'Crimson Text', sans-serif;
 	font-size: 18px;
 `;
