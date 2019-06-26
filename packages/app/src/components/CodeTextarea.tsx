@@ -17,7 +17,7 @@ interface CodeTextareaProps {
 const CodeTextarea = ({ blockId, mode, initialContent }: CodeTextareaProps) => {
 	const [content, setContent] = React.useState(initialContent);
 	// TODO: Add support for multiple languages
-	const [{ fetching }, execute] = useMutation(editBlock);
+	const [, execute] = useMutation(editBlock);
 	const handleChange = async (content: string) => {
 		await setContent(content);
 		execute({ id: blockId, content });

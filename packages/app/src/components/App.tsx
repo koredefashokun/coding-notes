@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 import Editor from './Editor';
 
 const App = () => {
-	const [fullScreen, setFullScreen] = React.useState(false);
+	const [fullScreen] = React.useState(false);
 	const [{ data, error, fetching }] = useQuery<{ notes: Note[] }>(
 		fetchAllNotes
 	);
