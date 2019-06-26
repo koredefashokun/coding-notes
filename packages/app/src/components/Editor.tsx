@@ -9,7 +9,7 @@ import {
 	BlockActionButton
 } from './elements';
 import { fetchNoteById, createBlock, editNote } from '../graphql';
-import CodeTextarea from './CodeTextarea';
+import BlockTextarea from './BlockTextarea';
 import EmptyEditor from './EmptyEditor';
 
 interface EditorProps extends RouteComponentProps<{ noteId: string }> {
@@ -54,7 +54,7 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 			<EditorTextArea>
 				{note.blocks.map((block, index) => (
 					<BlockContainer key={index} mode={block.mode}>
-						<CodeTextarea
+						<BlockTextarea
 							blockId={block._id}
 							mode={block.mode}
 							initialContent={block.content}

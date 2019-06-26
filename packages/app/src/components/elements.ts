@@ -131,7 +131,7 @@ export const BlockActionButton = styled.button`
 `;
 
 /*
- * Sidebar styles
+ * Sidebar Styles
  */
 
 export const SidebarContainer = styled.div`
@@ -149,7 +149,8 @@ export const SidebarItemContainer = styled(Link)`
 	flex-wrap: nowrap;
 	justify-content: space-between;
 	align-items: center;
-	font-family: sans-serif;
+	font-family: 'Crimson Text', sans-serif;
+	font-size: 18px;
 	font-weight: 500;
 	padding: 10px;
 	background-color: transparent;
