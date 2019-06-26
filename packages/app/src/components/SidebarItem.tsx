@@ -9,15 +9,11 @@ interface SidebarItemProps extends LinkProps {
 	title: string;
 }
 
-const SidebarItem = ({ selected, id, title, to }: SidebarItemProps) => {
-  return (
-    <>
-      <SidebarItemContainer {...{ to, selected }}>
-        <p>{title}</p>
-      </SidebarItemContainer>     
-      <SidebarActions noteId={id} />
-    </>
-  );
-};
+const SidebarItem = ({ selected, id, title, to }: SidebarItemProps) => (
+  <SidebarItemContainer {...{ to, selected }}>
+    <p>{title}</p>
+    <SidebarActions noteId={id} />
+  </SidebarItemContainer>     
+);
 
 export default SidebarItem;

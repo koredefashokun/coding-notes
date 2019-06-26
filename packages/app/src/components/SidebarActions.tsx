@@ -1,5 +1,6 @@
 import React from 'react';
 import { useMutation } from 'urql';
+import { SidebarActionContainer } from './elements';
 
 const mutation = `
   mutation DeleteNote ($id: String!) {
@@ -15,7 +16,11 @@ const SidebarActions = ({ noteId }: SidebarActionProps) => {
   const [, executeMutation] = useMutation(mutation);
   const onClick = () => executeMutation({ id: noteId });
 
-  return <button {...{ onClick }}>Delete</button>;
+  return (
+    <SidebarActionContainer {...{ onClick }}>
+      Delete
+    </SidebarActionContainer>
+  );
 };
 
 export default SidebarActions;

@@ -5,7 +5,8 @@ import {
 	EditorContainer,
 	EditorTitleInput,
 	EditorTextArea,
-	BlockContainer
+  BlockContainer,
+  BlockActionButton
 } from './elements';
 import { fetchNoteById, createBlock, editNote } from '../graphql';
 import CodeTextarea from './CodeTextarea';
@@ -32,7 +33,17 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 
 	if (!noteId) return <p>Please create a note first</p>;
 	if (fetching) return <p>Loading</p>;
-	if (error || !data) return <p>An error has ocurred.</p>;
+  if (error || !data) {
+    // TODO: Make an attempt to get another one.
+    // Maybe the topmost one in the sidebar?
+    // (Should I have kept all the notes in global state?)
+    // If all else fails, then:
+    return (
+      <div style={{ padding: 20, fontFamily: 'sans-serif' }}>
+        <p>Create a new note, or select one from the sidebar</p>
+      </div>
+    );
+  }
 
 	const { note } = data;
 
@@ -52,14 +63,17 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 							initialContent={block.content}
 						/>
 					</BlockContainer>
-				))}
-				<button onClick={() => createNewBlock('code')}>
-					Create new code block
-				</button>
-				<button onClick={() => createNewBlock('text')}>
-					Create new text block
-				</button>
-			</EditorTextArea>
+        ))}
+
+        <div style={{ display: 'flex' }}>
+          <BlockActionButton onClick={() => createNewBlock('code')}>
+            Create new code block
+          </BlockActionButton>
+          <BlockActionButton onClick={() => createNewBlock('text')}>
+            Create new text block
+          </BlockActionButton>
+        </div>
+      </EditorTextArea>
 		</EditorContainer>
 	);
 };

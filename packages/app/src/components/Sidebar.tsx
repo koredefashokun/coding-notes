@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { createNote } from '../graphql';
-import { SidebarContainer } from './elements';
+import { SidebarContainer, SidebarActionButton } from './elements';
 import SidebarItem from './SidebarItem';
 import { useMutation } from 'urql';
 
@@ -13,13 +13,11 @@ interface SidebarProps extends RouteComponentProps<{ noteId: string }> {
 const Sidebar = ({ collapsed, notes, history, match }: SidebarProps) => {
 	const [, executeMutation] = useMutation<any, Partial<Note>>(createNote);
 
-	console.log(match.url, match.path, match.params.noteId);
-
 	const addNote = async () => {
 		const {
-			data: { createNote }
+			data: { createNote: note }
 		} = await executeMutation({ title: 'Untitled' });
-		history.push(`/${createNote._id}`);
+		history.push(`/${note._id}`);
 	};
 
 	return (
@@ -33,7 +31,9 @@ const Sidebar = ({ collapsed, notes, history, match }: SidebarProps) => {
 					selected={match.params.noteId === note._id}
 				/>
 			))}
-			<div onClick={addNote}>Add Note</div>
+    <SidebarActionButton onClick={addNote}>
+      <p>+ Add Note</p>
+    </SidebarActionButton>
 		</SidebarContainer>
 	);
 };

@@ -2,12 +2,21 @@ import styled, { css } from 'styled-components';
 import Editor from 'react-simple-code-editor';
 import { Link } from 'react-router-dom';
 
+/*
+ * App/Global Styles
+ */
+
 export const AppContainer = styled.div`
 	display: grid;
 	grid-gap: 0;
 	grid-template-columns: minmax(250px, 0.33fr) 1fr;
 	height: 100vh;
 `;
+
+
+/*
+ * Editor Styles
+ */
 
 export const EditorContainer = styled.main`
 	display: flex;
@@ -44,11 +53,9 @@ export const EditorTextArea = styled.div`
 	}
 `;
 
-export const SidebarContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	background-color: #f2f2f2;
-`;
+/*
+ * Block Styles
+ */
 
 interface BlockContainerProps {
 	mode: 'text' | 'code';
@@ -80,22 +87,99 @@ export const BlockCodeTextarea = styled(Editor)`
 	height: 100%;
 `;
 
+export const BlockActionButton = styled.button`
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #505050;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  border-radius: 4px; 
+  transition: background-color 500ms linear;
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  &:focus {
+    outline: none;
+  }
+  &:not(:last-of-type) {
+    margin-right: 15px;
+  }
+`;
+
+/*
+ * Sidebar styles
+ */
+
+export const SidebarContainer = styled.div`
+	width: 100%;
+	height: 100%;
+	background-color: #f2f2f2;
+`;
+
 interface SidebarItemContainerProps {
 	selected?: boolean;
 }
 
 export const SidebarItemContainer = styled(Link)`
 	display: flex;
-	justify-content: center;
+  flex-wrap: nowrap;
+	justify-content: space-between;
+  align-items: center;
 	font-family: sans-serif;
+  font-weight: 500;
 	padding: 10px;
+  background-color: transparent;
+  color: #505050;
+  text-decoration: none;
 	${({ selected }: SidebarItemContainerProps) =>
-		selected &&
-		css`
-			border-left: 6px solid #505050;
-		`}
+		selected && css`border-left: 6px solid #505050;`}
 	border-bottom: 1px solid #d3d3d3;
+  transition: background-color 300ms ease-in;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
 `;
+
+export const SidebarActionContainer = styled.button`
+  padding: 6px;
+  background-color: #ED7E6D;
+  border-radius: 4px;
+  border: none;
+  font-size: 12px;
+  color: #F2F2F2;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const SidebarActionButton = styled.button`
+  display: block;
+  margin: auto;
+  padding: 10px 0;
+  margin-top: 20px;
+  width: 90%;
+  background-color: #505050;
+  border-radius: 4px;
+  color: #F2F2F2;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+/*
+ * Modal Styles
+ */
 
 const codeBlockStyles = css`
 	font-family: 'SF Mono', 'Dank Mono', monospace !important;
