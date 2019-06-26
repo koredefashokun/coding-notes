@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { createNote } from '../graphql';
+import { createNote, createBlock } from '../graphql';
 import { SidebarContainer, SidebarActionButton } from './elements';
 import SidebarItem from './SidebarItem';
 import { useMutation } from 'urql';
@@ -12,11 +12,15 @@ interface SidebarProps extends RouteComponentProps<{ noteId: string }> {
 
 const Sidebar = ({ collapsed, notes, history, match }: SidebarProps) => {
 	const [, executeMutation] = useMutation<any, Partial<Note>>(createNote);
+	const [, executeBlockMutation] = useMutation<any, Partial<Block>>(
+		createBlock
+	);
 
 	const addNote = async () => {
 		const {
 			data: { createNote: note }
 		} = await executeMutation({ title: 'Untitled' });
+		await executeBlockMutation({ noteId: note._id as string, mode: 'text' });
 		history.push(`/${note._id}`);
 	};
 

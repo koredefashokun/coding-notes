@@ -27,8 +27,9 @@ export const EditorContainer = styled.main`
 export const EditorTitleInput = styled.input`
 	border: none;
 	color: #505050;
+	font-family: 'Crimson Text', sans-serif;
 	font-size: 25px;
-	font-weight: bold;
+	font-weight: 500;
 	width: 100%;
 	margin-bottom: 10px;
 	&:focus {
@@ -52,6 +53,21 @@ export const EditorTextArea = styled.div`
 	}
 `;
 
+export const EmptyEditorContainer = styled.div`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	& > * {
+		text-align: center;
+		font-family: 'Crimson Text', sans-serif;
+		font-weight: 500;
+		color: #505050;
+	}
+`;
+
 /*
  * Block Styles
  */
@@ -70,7 +86,7 @@ export const BlockContainer = styled.div`
 	textarea {
 		border: none;
 		resize: none;
-		font-size: 16px;
+		font-size: 20px;
 		width: 100%;
 		height: 100%;
 		font-family: inherit !important;
@@ -194,5 +210,6 @@ const codeBlockStyles = css`
 const textBlockStyles = css`
 	border: none;
 	width: 85%;
-	font-family: sans-serif;
+	font-family: 'Crimson Text', sans-serif;
+	font-size: 18px;
 `;

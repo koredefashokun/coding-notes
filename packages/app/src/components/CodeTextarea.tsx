@@ -30,7 +30,11 @@ const CodeTextarea = ({ blockId, mode, initialContent }: CodeTextareaProps) => {
 			highlight={code => highlight(code, languages.js, 'js')}
 		/>
 	) : (
-		<textarea value={content} onChange={e => handleChange(e.target.value)} />
+		<textarea
+			placeholder='Some text here'
+			value={content}
+			onChange={e => handleChange(e.target.value)}
+		/>
 	);
 };
 

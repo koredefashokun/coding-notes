@@ -35,8 +35,8 @@ export const editNote = `
 `;
 
 export const createBlock = `
-	mutation CreateBlock($noteId: String!, $mode: String!, $content: String) {
-		createBlock(noteId: $noteId, mode: $mode, content: $content) ${blockReturn}
+	mutation CreateBlock($noteId: String!, $mode: String!) {
+		createBlock(noteId: $noteId, mode: $mode) ${blockReturn}
 	}
 `;
 

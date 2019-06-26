@@ -10,6 +10,7 @@ import {
 } from './elements';
 import { fetchNoteById, createBlock, editNote } from '../graphql';
 import CodeTextarea from './CodeTextarea';
+import EmptyEditor from './EmptyEditor';
 
 interface EditorProps extends RouteComponentProps<{ noteId: string }> {
 	fullScreen: boolean;
@@ -23,13 +24,11 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 		fetchNoteById(noteId)
 	);
 
-	const createNewBlock = async (mode: Block['mode']) => {
-		return executeBlockMutation({ noteId, mode, content: '' });
-		// This works but makes the app feel very brittle.
-		// executeQuery({ requestPolicy: 'cache-and-network' });
+	const createNewBlock = (mode: Block['mode']) => {
+		return executeBlockMutation({ noteId, mode });
 	};
 
-	const editNoteByTitle = async (title: string) => {
+	const editNoteByTitle = (title: string) => {
 		return executeNoteMutation({ id: noteId, title });
 	};
 
@@ -40,11 +39,7 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 		// Maybe the topmost one in the sidebar?
 		// (Should I have kept all the notes in global state?)
 		// If all else fails, then:
-		return (
-			<div style={{ padding: 20, fontFamily: 'sans-serif' }}>
-				<p>Create a new note, or select one from the sidebar</p>
-			</div>
-		);
+		return <EmptyEditor />;
 	}
 
 	const { note } = data;
