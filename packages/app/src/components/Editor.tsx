@@ -26,8 +26,8 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 	);
 
 	React.useEffect(() => {
-		if (data && data.note) setTitle(data.note.title);
-	}, [data]);
+		if (data && data.note.title) setTitle(data.note.title);
+	}, [data && data.note.title]);
 
 	const createNewBlock = (mode: Block['mode']) => {
 		return executeBlockMutation({ noteId, mode });
