@@ -5,7 +5,6 @@ import {
 	EditorContainer,
 	EditorTitleInput,
 	EditorTextArea,
-	BlockContainer,
 	BlockActionButton
 } from './elements';
 import { fetchNoteById, createBlock, editNote, clearNote } from '../graphql';
@@ -18,6 +17,7 @@ interface EditorProps extends RouteComponentProps<{ noteId: string }> {
 
 const Editor = ({ fullScreen, match }: EditorProps) => {
 	const { noteId } = match.params;
+	const [title, setTitle] = React.useState('');
 	const [, executeBlockMutation] = useMutation(createBlock);
 	const [, executeNoteMutation] = useMutation(editNote);
 	const [, executeClearNote] = useMutation(clearNote);
@@ -25,11 +25,16 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 		fetchNoteById(noteId)
 	);
 
+	React.useEffect(() => {
+		if (data && data.note) setTitle(data.note.title);
+	}, [data]);
+
 	const createNewBlock = (mode: Block['mode']) => {
 		return executeBlockMutation({ noteId, mode });
 	};
 
-	const editNoteByTitle = (title: string) => {
+	const editNoteByTitle = async (title: string) => {
+		await setTitle(title);
 		return executeNoteMutation({ id: noteId, title });
 	};
 
@@ -51,7 +56,7 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 		<EditorContainer>
 			<EditorTitleInput
 				placeholder='Note Title'
-				value={note.title}
+				value={title}
 				onChange={e => editNoteByTitle(e.target.value)}
 			/>
 			<EditorTextArea>
