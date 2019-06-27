@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMutation } from 'urql';
 import { editBlock } from '../graphql';
+import { BlockContainer } from './elements';
 import CodeTextarea from './CodeTextarea';
 import CustomTextarea from './CustomTextarea';
 
@@ -20,10 +21,14 @@ const BlockTextarea = (props: BlockTextareaProps) => {
 		execute({ id: blockId, content });
 	};
 
-	return mode === 'code' ? (
-		<CodeTextarea content={content} onChange={handleChange} />
-	) : (
-		<CustomTextarea content={content} onChange={handleChange} />
+	return (
+		<BlockContainer mode={mode}>
+			{mode === 'code' ? (
+				<CodeTextarea content={content} onChange={handleChange} />
+			) : (
+				<CustomTextarea content={content} onChange={handleChange} />
+			)}
+		</BlockContainer>
 	);
 };
 

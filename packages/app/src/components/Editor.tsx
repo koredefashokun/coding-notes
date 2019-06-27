@@ -56,13 +56,12 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 			/>
 			<EditorTextArea>
 				{note.blocks.map((block, index) => (
-					<BlockContainer key={index} mode={block.mode}>
-						<BlockTextarea
-							blockId={block._id}
-							mode={block.mode}
-							initialContent={block.content}
-						/>
-					</BlockContainer>
+					<BlockTextarea
+						key={index}
+						blockId={block._id}
+						mode={block.mode}
+						initialContent={block.content}
+					/>
 				))}
 
 				<div style={{ display: 'flex' }}>
