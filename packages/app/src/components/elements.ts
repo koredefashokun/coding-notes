@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Editor from 'react-simple-code-editor';
+import TextArea from 'react-textarea-autosize';
 import { Link } from 'react-router-dom';
 
 /*
@@ -85,7 +86,7 @@ export const BlockContainer = styled.div`
 	max-height: 400px;
 	${({ mode }: BlockContainerProps) =>
 		mode === 'code' ? codeBlockStyles : textBlockStyles}
-	textarea {
+	/* textarea {
 		border: 2.5px solid transparent;
 		padding: 10px;
 		resize: none;
@@ -98,7 +99,7 @@ export const BlockContainer = styled.div`
 		&:focus {
 			border: 2.5px solid #d3d3d3;
 		}
-	}
+	} */
 `;
 
 export const BlockCodeTextarea = styled(Editor)`
@@ -107,6 +108,21 @@ export const BlockCodeTextarea = styled(Editor)`
 	font-size: 16px;
 	width: 100%;
 	height: 100%;
+`;
+
+export const BlockCustomTextarea = styled(TextArea)`
+	border: 2.5px solid transparent;
+	padding: 10px;
+	resize: none;
+	font-size: 20px;
+	width: 100%;
+	height: 100%;
+	font-family: inherit !important;
+	color: #333;
+	transition: border 200ms ease;
+	&:focus {
+		border: 2.5px solid #d3d3d3;
+	}
 `;
 
 export const BlockActionButton = styled.button`

@@ -51,3 +51,9 @@ export const editBlock = `
 		editBlock(id: $id, content: $content) ${blockReturn}
 	}
 `;
+
+export const deleteBlock = `
+	mutation DeleteBlock($id: String!) {
+		deleteBlock(id: $id) { _id }
+	}
+`;

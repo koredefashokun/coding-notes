@@ -1,4 +1,5 @@
 import React from 'react';
+import { BlockCustomTextarea } from './elements';
 
 interface CustomTextareaProps {
 	content: string;
@@ -15,7 +16,7 @@ const CustomTextarea = ({ content, onChange }: CustomTextareaProps) => {
 	};
 
 	return (
-		<textarea
+		<BlockCustomTextarea
 			placeholder='Some text here'
 			value={content}
 			onChange={handleChange}
