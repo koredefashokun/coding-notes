@@ -34,6 +34,12 @@ export const editNote = `
 	}
 `;
 
+export const clearNote = `
+	mutation ClearNote($id: String!) {
+		clearNote(id: $id) ${noteReturn}
+	}
+`;
+
 export const deleteNote = `
 	mutation DeleteNote ($id: String!) {
 		deleteNote(id: $id) { _id }

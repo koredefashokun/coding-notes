@@ -86,20 +86,6 @@ export const BlockContainer = styled.div`
 	max-height: 400px;
 	${({ mode }: BlockContainerProps) =>
 		mode === 'code' ? codeBlockStyles : textBlockStyles}
-	/* textarea {
-		border: 2.5px solid transparent;
-		padding: 10px;
-		resize: none;
-		font-size: 20px;
-		width: 100%;
-		height: 100%;
-		font-family: inherit !important;
-		color: #333;
-		transition: border 200ms ease;
-		&:focus {
-			border: 2.5px solid #d3d3d3;
-		}
-	} */
 `;
 
 export const BlockCodeTextarea = styled(Editor)`

@@ -8,7 +8,7 @@ import {
 	BlockContainer,
 	BlockActionButton
 } from './elements';
-import { fetchNoteById, createBlock, editNote } from '../graphql';
+import { fetchNoteById, createBlock, editNote, clearNote } from '../graphql';
 import BlockTextarea from './BlockTextarea';
 import EmptyEditor from './EmptyEditor';
 
@@ -20,6 +20,7 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 	const { noteId } = match.params;
 	const [, executeBlockMutation] = useMutation(createBlock);
 	const [, executeNoteMutation] = useMutation(editNote);
+	const [, executeClearNote] = useMutation(clearNote);
 	const [{ data, error, fetching }] = useQuery<{ note: Note }>(
 		fetchNoteById(noteId)
 	);
@@ -31,6 +32,8 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 	const editNoteByTitle = (title: string) => {
 		return executeNoteMutation({ id: noteId, title });
 	};
+
+	const clearNoteBlocks = () => executeClearNote({ id: noteId });
 
 	if (!noteId) return <p>Please create a note first</p>;
 	if (fetching) return <p>Loading</p>;
@@ -68,6 +71,9 @@ const Editor = ({ fullScreen, match }: EditorProps) => {
 					</BlockActionButton>
 					<BlockActionButton onClick={() => createNewBlock('text')}>
 						Create new text block
+					</BlockActionButton>
+					<BlockActionButton onClick={() => clearNoteBlocks()}>
+						Clear all blocks
 					</BlockActionButton>
 				</div>
 			</EditorTextArea>
