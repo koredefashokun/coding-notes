@@ -18,7 +18,8 @@ export const BlockSchema = new Schema({
 		required: true
 	},
 	content: {
-		type: String
+		type: String,
+		default: ''
 	}
 });
 
