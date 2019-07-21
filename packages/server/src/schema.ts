@@ -3,8 +3,9 @@ import { gql } from 'apollo-server';
 const schema = gql`
 	type Block {
 		_id: String!
+		noteId: String!
 		mode: String!
-		content: String!
+		content: String
 	}
 
 	type Note {
@@ -21,8 +22,10 @@ const schema = gql`
 
 	type Mutation {
 		createNote(title: String!): Note!
-		deleteNote(id: String!): String!
-		createBlock(noteId: String!, mode: String!, content: String!): Block!
+		editNote(id: String!, title: String!): Note!
+		clearNote(id: String!): Note!
+		deleteNote(id: String!): Note!
+		createBlock(noteId: String!, mode: String!, content: String): Block!
 		editBlock(id: String!, mode: String, content: String!): Block!
 		deleteBlock(id: String!): String!
 	}

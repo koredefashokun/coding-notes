@@ -30,12 +30,24 @@ const resolvers: IResolvers = {
 	Mutation: {
 		createNote: async (_, { title }): Promise<NoteType> => {
 			const note = await new Note({ title }).save();
+			note.blocks = [];
 			return note;
 		},
-		deleteNote: async (_, { id }): Promise<string> => {
+		editNote: async (_, { id, title }): Promise<NoteType> => {
+			const note = await Note.findOne({ _id: id });
+			note.title = title;
+			const updatedNote = await note.save();
+			return updatedNote;
+		},
+		clearNote: async (_, { id }): Promise<NoteType> => {
+			await Block.deleteMany({ noteId: id });
+			const note = await Note.findOne({ _id: id });
+			return note;
+		},
+		deleteNote: async (_, { id }): Promise<{ _id: string }> => {
 			await Block.deleteMany({ noteId: id });
 			await Note.deleteOne({ _id: id });
-			return `Successfully deleted note: ${id}`;
+      return { _id: id };
 		},
 		createBlock: async (_, { noteId, mode, content }): Promise<BlockType> => {
 			const block = await new Block({ noteId, mode, content }).save();

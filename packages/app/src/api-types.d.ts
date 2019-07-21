@@ -1,5 +1,6 @@
 interface Block {
 	_id: string;
+	noteId: string;
 	mode: 'text' | 'code';
 	content: string;
 }
